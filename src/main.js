@@ -1,10 +1,32 @@
 import Square from './particle';
 import './main.css';
+
 (() => {
     const canvas = document.querySelector('canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const ctx = canvas.getContext('2d');
+
+    // create web audio api context
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // create Oscillator node
+    const oscillator = audioCtx.createOscillator();
+    oscillator.type = 'square';
+    oscillator.frequency.value = 500; // value in hertz
+    oscillator.start();
+
+
+    let mouse = {
+        x: undefined,
+        y: undefined
+    };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+    let colorArray = ['blue', 'red', 'green', 'yellow', 'orange', 'pink'];
+
 
     let arrayPos = [];
     const animate = () => {
@@ -33,6 +55,10 @@ import './main.css';
                         e.dy = -e.dy;
                         arrayPos[k].dx = -arrayPos[k].dx;
                         arrayPos[k].dy = -arrayPos[k].dy;
+                        oscillator.connect(audioCtx.destination);
+                        setTimeout(() => {
+                            oscillator.disconnect();
+                        }, 10)
                         e.update();
                     }
                 }
@@ -43,7 +69,7 @@ import './main.css';
     };
 
     let arraySquare = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
 
@@ -52,8 +78,8 @@ import './main.css';
 
         let dx = Math.random() - 0.5 * 2;
         let dy = Math.random() - 0.5 * 2;
-        let speed = 5;
-        arraySquare.push(new Square(canvas, ctx, x, y, w, h, dx, dy, speed));
+        let speed = 4;
+        arraySquare.push(new Square(canvas, ctx, x, y, w, h, dx, dy, speed, mouse, colorArray));
     }
 
     animate();
@@ -61,9 +87,9 @@ import './main.css';
 })();
 
 javascript:(function () {
-    var script = document.createElement('script');
+    let script = document.createElement('script');
     script.onload = function () {
-        var stats = new Stats();
+        let stats = new Stats();
         document.body.appendChild(stats.dom);
         requestAnimationFrame(function loop() {
             stats.update();
@@ -72,8 +98,4 @@ javascript:(function () {
     };
     script.src = '//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';
     document.head.appendChild(script);
-})()
-
-
-
-
+})();

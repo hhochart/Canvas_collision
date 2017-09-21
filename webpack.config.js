@@ -25,6 +25,6 @@ module.exports = {
     plugins,
     devServer: {
         host: '0.0.0.0',
-        port: 1500,
+        port: 1501,
     }
 };
