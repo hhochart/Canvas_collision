@@ -1,0 +1,27 @@
+{
+  "name": "canvas_collision",
+  "version": "1.0.0",
+  "description": "canvas collision",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hhochart29/canvas-collision.git"
+  },
+  "author": "Herve",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hhochart29/canvas-collision/issues"
+  },
+  "homepage": "https://github.com/hhochart29/canvas-collision#readme",
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
+  }
+}
