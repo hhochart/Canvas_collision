@@ -1,18 +1,7 @@
 class Square {
-    constructor(canvas, ctx, x, y, w, h, dx, dy, speed, mouse, colorArray) {
+    constructor(canvas, ctx, x, y, w, h, dx, dy, speed, mouse) {
         this.canvas = canvas;
         this.ctx = ctx
-
-        // let x = Math.random() * canvas.width;
-        // let y = Math.random() * canvas.height;
-        //
-        // let w = 20;
-        // let h = 20;
-        //
-        // let dx = Math.random() - 0.5 * 2;
-        // let dy = Math.random() - 0.5 * 2;
-        // let speed = 4;
-        //
         this.x = x;
         this.y = y;
         this.w = w;
@@ -21,13 +10,12 @@ class Square {
         this.dy = dy;
         this.speed = speed;
         this.mouse = mouse;
-        this.minW = 20;
-        this.maxW = 60;
-        this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
+        this.minW = 10;
+        this.maxW = 40;
     }
 
     draw() {
-        this.ctx.fillStyle = this.color;
+        this.ctx.fillStyle = 'white';
         this.ctx.fillRect(this.x, this.y, this.w, this.h);
     }
 
@@ -35,6 +23,7 @@ class Square {
         this.x += this.dx * this.speed;
         this.y += this.dy * this.speed;
 
+        // Gestion des rebonds
         if (this.x < 0 || this.x > this.canvas.width) {
             this.dx = -this.dx;
         }
@@ -55,6 +44,7 @@ class Square {
 
         this.draw();
     }
+
 }
 
 export default Square;

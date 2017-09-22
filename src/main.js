@@ -25,8 +25,8 @@ import './main.css';
         mouse.x = e.x;
         mouse.y = e.y;
     });
-    let colorArray = ['blue', 'red', 'green', 'yellow', 'orange', 'pink'];
 
+    // Mouse click directive
 
     let arrayPos = [];
     const animate = () => {
@@ -45,6 +45,10 @@ import './main.css';
                     ctx.lineTo(arrayPos[k].x + (arrayPos[k].w / 2), arrayPos[k].y + (arrayPos[k].h / 2));
                     ctx.strokeStyle = 'white';
                     ctx.stroke();
+
+                    window.addEventListener('click', () => {
+                        e.speed +=1;
+                    });
 
                     //gestion des collisions
                     if (e.x < arrayPos[k].x + arrayPos[k].w &&
@@ -69,17 +73,17 @@ import './main.css';
     };
 
     let arraySquare = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 10; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
 
-        let w = 20;
-        let h = 20;
+        let w = 10  ;
+        let h = 10;
 
         let dx = Math.random() - 0.5 * 2;
         let dy = Math.random() - 0.5 * 2;
         let speed = 4;
-        arraySquare.push(new Square(canvas, ctx, x, y, w, h, dx, dy, speed, mouse, colorArray));
+        arraySquare.push(new Square(canvas, ctx, x, y, w, h, dx, dy, speed, mouse));
     }
 
     animate();
