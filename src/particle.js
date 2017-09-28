@@ -1,22 +1,30 @@
-class Square {
-    constructor(canvas, ctx, x, y, w, h, dx, dy, speed, mouse) {
+class Particle {
+    constructor(canvas, ctx, x, y, w, dx, dy, speed, mouse, color) {
         this.canvas = canvas;
-        this.ctx = ctx
+        this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.w = w;
-        this.h = h;
         this.dx = dx;
         this.dy = dy;
         this.speed = speed;
         this.mouse = mouse;
-        this.minW = 10;
-        this.maxW = 40;
-    }
+        this.color = color;
+        this.minW = 5;
+        this.maxW = 10;
+	}
 
     draw() {
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.x, this.y, this.w, this.h);
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.w, 0, 2*Math.PI, false);
+        if (this.color) {
+            this.ctx.fillStyle = this.color;
+        } else {
+            this.ctx.fillStyle = 'white';
+        }
+        this.ctx.fill();
+        this.ctx.closePath();
+
     }
 
     update() {
@@ -34,17 +42,14 @@ class Square {
         // Mouse Interactivity
         if (this.mouse.x - this.x < 120 && this.mouse.x - this.x > -120 && this.mouse.y - this.y > -120 && this.mouse.y - this.y < 120) {
             if (this.w < this.maxW) {
-                this.w += 2;
-                this.h += 2;
+                this.w += .1;
             }
         } else if (this.w > this.minW) {
-            this.w -= 1;
-            this.h -= 1;
+            this.w -= .2;
         }
-
         this.draw();
     }
 
 }
 
-export default Square;
+export default Particle;
